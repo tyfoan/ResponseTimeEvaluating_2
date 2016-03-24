@@ -2,12 +2,7 @@
 
 namespace WebApplication1.Controllers
 {
-    //public class Response                             fast test
-    //{
-    //    public int ResponseId { get; set; }
-    //    public string Url { get; set; }
-    //    public string ResponseTime { get; set; }
-    //}
+ 
     public class HomeController : Controller
     {
 
