@@ -8,6 +8,6 @@
 
 /Controllers/HomeController.cs    - Логика приложения.
 
-/Views/Home/Index.cshtml	  - Вьюхи
+/Views/Home/Index.cshtml	  - Вьюха
 
 /Views/Home/_EvaluateSite.cshtml  - Отрисовка графика. (Highcharts.js)
