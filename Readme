@@ -1,0 +1,14 @@
+
+Файлы которые изменялись в разработке:
+
+/EF/ContextEvaluator.cs 	  - Контекст данных.
+
+/Models/Response.cs		  - Модель данных
+/Models/Site.cs
+
+/Controllers/HomeController.cs    - Логика приложения.
+
+/Views/Home/Index.cshtml	  - Вьюхи
+
+/Views/Home/_EvaluateSite.cshtml  - Отрисовка графика. (Highcharts.js)
+
