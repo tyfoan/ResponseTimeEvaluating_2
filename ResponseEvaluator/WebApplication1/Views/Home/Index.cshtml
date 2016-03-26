@@ -1,3 +1,56 @@
-﻿@{
+﻿@using System.Web.UI.WebControls
+@model WebApplication1.Models.ResponseViewModel
+@{
     ViewBag.Title = "Home Page";
 }
+<br />
+
+
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Ajax.BeginForm("EvaluateSite", "Home", new AjaxOptions() { UpdateTargetId = "chartDrawing" }, new { @class = "form-horizontal" }))
+            {
+                <div class="form-group">
+
+                    @Html.LabelFor(x => x.ResponseUrl)
+                    @Html.TextBoxFor(x => x.ResponseUrl, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.ResponseUrl, "", new { @class = "text-danger" })<br />
+                    <input type="submit" class="btn btn-success" value="Измерить время запроса" />
+                </div>
+            }
+            @* <label> <input type="radio" value="All" name="chart" id="radioAll" onchange="ShowChart()" checked="checked"/>Show all responses</label><br/>
+                <label> <input type="radio" value="MinMax" name="chart" id="radioMinMax" onchange="ShowChart()"/>Show min/max responses </label><br/>
+                <label> <input type="radio" value="TenSlowest" name="chart" id="radioTenSlowest" onchange="ShowChart()"/> Show 10 slowest responses </label><br/>*@
+            <div id="ContainerAll" style="min-width: 1140px; height: 400px; margin: 0 auto"></div>
+            @*<div id="ContainerMinMax" style="min-width: 1140px; height: 400px; margin: 0 auto" hidden="hidden"></div>
+                <div id="ContainerTenSlowest" style="min-width: 1140px; height: 400px; margin: 0 auto" hidden="hidden"></div>*@
+
+        </section>
+    </div>
+    <div id="chartDrawing">
+
+    </div>
+</div>
+
+
+<script>
+    function ShowChart() {
+        if ($('#radioAll').is(':checked')) {
+            $('#ContainerAll').show();
+            $('#ContainerMinMax').hide();
+            $('#ContainerTenSlowest').hide();
+        } else if ($('#radioMinMax').is(':checked')) {
+            $('#ContainerAll').hide();
+            $('#ContainerMinMax').show();
+            $('#ContainerTenSlowest').hide();
+        } else if ($('#radioTenSlowest').is(':checked')) {
+            $('#ContainerAll').hide();
+            $('#ContainerMinMax').hide();
+            $('#ContainerTenSlowest').show();
+        }
+    }
+
+    ShowChart();
+</script>
