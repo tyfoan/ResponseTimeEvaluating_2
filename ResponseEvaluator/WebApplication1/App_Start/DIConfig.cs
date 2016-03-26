@@ -40,7 +40,7 @@ public class DIConfig
         ControllerBuilder.Current.SetControllerFactory(controllerFactory);
 #endif
 
-        MvcSiteMapProviderConfig.Register(container);
+        //MvcSiteMapProviderConfig.Register(container);
 
     }
 }

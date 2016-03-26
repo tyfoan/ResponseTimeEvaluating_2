@@ -47,7 +47,7 @@ namespace WebApplication1.Controllers
                 doc = hw.Load(site.SiteUrl);
 
 
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i <= 10; i++)
                 {
 
                     var request = WebRequest.Create(site.SiteUrl);
@@ -84,32 +84,5 @@ namespace WebApplication1.Controllers
             return PartialView("_EvaluateSite", context.Responses);
         }
 
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public ActionResult ContactInner_1()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        public ActionResult ContactInner_2()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
