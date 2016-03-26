@@ -11,6 +11,3 @@
 /Views/Home/Index.cshtml	  - Вьюхи
 
 /Views/Home/_EvaluateSite.cshtml  - Отрисовка графика. (Highcharts.js)
-
-
-Все данные тянутся из базы данных.
