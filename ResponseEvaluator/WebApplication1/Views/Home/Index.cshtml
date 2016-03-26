@@ -1,11 +1,11 @@
 ﻿@using System.Web.UI.WebControls
-@model WebApplication1.Models.ResponseViewModel
+@model WebApplication1.Models.Site
 @{
     ViewBag.Title = "Home Page";
 }
 <br />
 
-
+@*@using (Html.BeginForm("EvaluateSite", "Home", new { @class = "form-horizontal" }))*@
 
 <div class="row">
     <div class="col-md-8">
@@ -14,18 +14,24 @@
             {
                 <div class="form-group">
 
-                    @Html.LabelFor(x => x.ResponseUrl)
-                    @Html.TextBoxFor(x => x.ResponseUrl, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(x => x.ResponseUrl, "", new { @class = "text-danger" })<br />
+                    @Html.LabelFor(x => x.SiteUrl)
+                    @Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.SiteUrl, "", new { @class = "text-danger" })<br />
                     <input type="submit" class="btn btn-success" value="Измерить время запроса" />
                 </div>
             }
-            @* <label> <input type="radio" value="All" name="chart" id="radioAll" onchange="ShowChart()" checked="checked"/>Show all responses</label><br/>
-                <label> <input type="radio" value="MinMax" name="chart" id="radioMinMax" onchange="ShowChart()"/>Show min/max responses </label><br/>
-                <label> <input type="radio" value="TenSlowest" name="chart" id="radioTenSlowest" onchange="ShowChart()"/> Show 10 slowest responses </label><br/>*@
+
+
+            <label> <input type="radio" value="All" name="chart" id="radioAll" onchange="ShowChart()" checked="checked" />Show all responses</label><br />
+            <label> <input type="radio" value="MinMax" name="chart" id="radioMinMax" onchange="ShowChart()" />Show min/max responses </label><br />
+            <label> <input type="radio" value="TenSlowest" name="chart" id="radioTenSlowest" onchange="ShowChart()"/> Show 10 slowest responses </label><br/>
+
+            @Ajax.ActionLink("Показать график", "EvaluateSite", "Home", new AjaxOptions() { UpdateTargetId = "chartDrawing" }, new { @class = "btn btn-default" })
+
+
             <div id="ContainerAll" style="min-width: 1140px; height: 400px; margin: 0 auto"></div>
-            @*<div id="ContainerMinMax" style="min-width: 1140px; height: 400px; margin: 0 auto" hidden="hidden"></div>
-                <div id="ContainerTenSlowest" style="min-width: 1140px; height: 400px; margin: 0 auto" hidden="hidden"></div>*@
+            <div id="ContainerMinMax" style="min-width: 1140px; height: 400px; margin: 0 auto" hidden="hidden"></div>
+            <div id="ContainerTenSlowest" style="min-width: 1140px; height: 400px; margin: 0 auto" hidden="hidden"></div>
 
         </section>
     </div>

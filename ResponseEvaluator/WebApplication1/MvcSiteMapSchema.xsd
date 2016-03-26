@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <xs:schema
-		targetNamespace="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+		targetNamespace="http://mvcresponsemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
 		elementFormDefault="qualified"
-		xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+		xmlns="http://mvcresponsemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
 		xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
 	<xs:annotation>
@@ -26,7 +26,7 @@
 		<xs:choice minOccurs="0" maxOccurs="1">
 			<xs:element name="mvcSiteMapNode" type="mvcSiteMapNodeType"/>
 		</xs:choice>
-		<xs:attributeGroup ref="siteMapAttributes" />
+		<xs:attributeGroup ref="responseMapAttributes" />
 	</xs:complexType>
 
 	<xs:element name="mvcSiteMap" type="mvcSiteMapType" />
@@ -125,7 +125,7 @@
     <xs:attribute name="visibilityProvider" type="xs:string" use="optional">
       <xs:annotation>
         <xs:documentation>
-          Class that will be used to determine visibility for a sitemap node.
+          Class that will be used to determine visibility for a responsemap node.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -134,7 +134,7 @@
     <xs:attribute name="dynamicNodeProvider" type="xs:string" use="optional">
       <xs:annotation>
         <xs:documentation>
-          A class name implementing MvcSiteMapProvider.IDynamicNodeProvider and providing dynamic nodes for the site map.
+          A class name implementing MvcSiteMapProvider.IDynamicNodeProvider and providing dynamic nodes for the response map.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -150,7 +150,7 @@
     <xs:attribute name="urlResolver" type="xs:string" use="optional">
       <xs:annotation>
         <xs:documentation>
-          Class that will be used to generate URLs for sitemap nodes.
+          Class that will be used to generate URLs for responsemap nodes.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -204,7 +204,7 @@
       <xs:annotation>
         <xs:documentation>
           Optional. The primary URL for what is completely or mostly duplicated content on the current node.
-          The value may be an absolute URL (in the current site or in an external site), a root relative URL starting with '/', 
+          The value may be an absolute URL (in the current response or in an external response), a root relative URL starting with '/', 
           or a virtual application URL starting with '~/'.
         </xs:documentation>
       </xs:annotation>
@@ -245,7 +245,7 @@
     <xs:attribute name="inheritedRouteParameters" type="xs:string" use="optional">
       <xs:annotation>
         <xs:documentation>
-          Optional. Route parameters that should be inherited from the parent sitemap node in the hierarchy while constructing the sitemap.
+          Optional. Route parameters that should be inherited from the parent responsemap node in the hierarchy while constructing the responsemap.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -259,28 +259,28 @@
 		<xs:attribute name="area" type="xs:string" use="optional">
 			<xs:annotation>
 				<xs:documentation>
-					The MVC area for the sitemap node. If not specified, it will be inherited from a node higher in the hierarchy.
+					The MVC area for the responsemap node. If not specified, it will be inherited from a node higher in the hierarchy.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="controller" type="xs:string" use="optional">
 			<xs:annotation>
 				<xs:documentation>
-					The MVC controller for the sitemap node. Case-sensitive! If not specified, it will be inherited from a node higher in the hierarchy.
+					The MVC controller for the responsemap node. Case-sensitive! If not specified, it will be inherited from a node higher in the hierarchy.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="action" type="xs:string" use="optional">
 			<xs:annotation>
 				<xs:documentation>
-					The MVC action method for the sitemap node. If not specified, it will be inherited from a node higher in the hierarchy.
+					The MVC action method for the responsemap node. If not specified, it will be inherited from a node higher in the hierarchy.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
 
 	<xs:attributeGroup name="fileNodeAttributes">
-		<xs:attribute name="siteMapFile" type="xs:string" use="optional" />
+		<xs:attribute name="responseMapFile" type="xs:string" use="optional" />
 	</xs:attributeGroup>
 
 	<xs:attributeGroup name="providerNodeAttributes">
@@ -291,27 +291,27 @@
 		<xs:attribute name="lastModifiedDate" type="xs:dateTime" use="optional">
 			<xs:annotation>
 				<xs:documentation>
-					Last modified date for the node. Will be output to sitemaps XML for search engines.
+					Last modified date for the node. Will be output to responsemaps XML for search engines.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="changeFrequency" type="changefrequency_type" use="optional" default="Undefined" >
 			<xs:annotation>
 				<xs:documentation>
-					Change frequency for the node. Will be output to sitemaps XML for search engines.
+					Change frequency for the node. Will be output to responsemaps XML for search engines.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 		<xs:attribute name="updatePriority" type="updatepriority_type" default="Undefined" use="optional">
 			<xs:annotation>
 				<xs:documentation>
-					Update priority for the node. Will be output to sitemaps XML for search engines.
+					Update priority for the node. Will be output to responsemaps XML for search engines.
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
 
-	<xs:attributeGroup name="siteMapAttributes">
+	<xs:attributeGroup name="responseMapAttributes">
 		<!-- Put sitemap attributes here -->
 	</xs:attributeGroup>
 

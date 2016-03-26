@@ -5,7 +5,8 @@ namespace WebApplication1.EF
 {
     public class ContextEvaluator : DbContext
     {
-        public DbSet<ResponseViewModel> Responses { get; set; }
+        public DbSet<Response> Responses { get; set; }
+        public DbSet<Site> Sites { get; set; }
         public ContextEvaluator() : base("ResponseEvaluator")
         {            
         }
