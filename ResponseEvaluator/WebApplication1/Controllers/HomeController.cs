@@ -47,8 +47,8 @@ namespace WebApplication1.Controllers
                 doc = hw.Load(site.SiteUrl);
 
 
-                for (int i = 0; i <= 10; i++)
-                {
+                for (int i = 0; i <= 10; i++)                   //Отправляю 10 запросов для тестирования
+                {                                               
 
                     var request = WebRequest.Create(site.SiteUrl);
                     var timer = new Stopwatch();
