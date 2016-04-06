@@ -1,180 +1,180 @@
 ﻿@model IEnumerable<WebApplication1.Models.Response>
 
 
-<script>
-    var responseData = @Html.Raw(Json.Encode(Model));
-    $(function () {
-        $('#ContainerAll').highcharts({
-            chart: {
-                renderTo: 'ContainerAll'
-            },
-            title: {
-                text: 'Measure response time'
-            },
-            subtitle: {
-                text: 'Source: WorldClimate.com'
-            },
-            yAxis: {
-                min: 0,
+@*<script>
+        var responseData = @Html.Raw(Json.Encode(Model));
+        $(function () {
+            $('#ContainerAll').highcharts({
+                chart: {
+                    renderTo: 'ContainerAll'
+                },
                 title: {
-                    text: 'Time (msec)'
+                    text: 'Measure response time'
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com'
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Time (msec)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.1f} ms</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                xAxis: {
+                    categories: ['1', '2', '3', '4', '5']
                 }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} ms</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            xAxis: {
-                categories: ['1', '2', '3', '4', '5']
-            }
+            });
         });
-    });
 
 
 
 
-    function MeasureResponseTime() {
-        DrawChartWithAllResponses();
-        DrawChartMinMaxResponses();
-        DrawChartTenSlowest();
-    }
-
-    function DrawChartWithAllResponses() {
-        var chart = $('#ContainerAll').highcharts();
-        for (var i = 0; i < responseData.length; i++) {
-            if (chart.get(responseData[i].SiteUrl)) {
-                chart.get(responseData[i].SiteUrl).addPoint(responseData[i].ResponseTime);
-            } else {
-                chart.addSeries({ id: responseData[i].SiteUrl, name: responseData[i].SiteUrl})
-                     .addPoint(responseData[i].ResponseTime);
-            }
+        function MeasureResponseTime() {
+            DrawChartWithAllResponses();
+            DrawChartMinMaxResponses();
+            DrawChartTenSlowest();
         }
-    }
 
-
-    function DrawChartMinMaxResponses() {
-        responseData.sort(function (a, b) {
-            return parseFloat(a.ResponseTime) - parseFloat(b.ResponseTime);
-        });
-
-        responseData[0].ResponseTime;                       //min
-        responseData[responseData.length - 1].ResponseUrl; // max
-
-        $('#ContainerMinMax').highcharts({
-            chart: {
-                renderTo: 'ContainerMinMax',
-                type: 'column'
-            },
-            title: {
-                text: 'Min and max response time'
-            },
-            subtitle: {
-                text: 'Source: WorldClimate.com'
-            },
-            xAxis: {
-                categories: ['min/max'],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Time (msec)'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span> </br>' +
-                              '<table>',
-                pointFormat: '<tr>' +
-                                '<td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                '<td style="padding:0"><b>{point.y:.1f} ms</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [
-                {
-                    name: 'min: ' + responseData[0].ResponseUrl,                             //min
-                    data: [responseData[0].ResponseTime]
-                },{
-                    name: 'max: ' + responseData[responseData.length - 1].ResponseUrl,      // max
-                    data: [responseData[responseData.length-1].ResponseTime]
-                }
-            ]
-        });
-    }
-
-
-    function DrawChartTenSlowest() {
-        $('#ContainerTenSlowest').highcharts({
-            chart: {
-                renderTo: 'ContainerTenSlowest',
-                type: 'column'
-            },
-            title: {
-                text: 'Min and max response time'
-            },
-            subtitle: {
-                text: 'Source: WorldClimate.com'
-            },
-            xAxis: {
-                categories: ["Ten slowest responses"],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Time (msec)'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span> </br>' +
-                              '<table>',
-                pointFormat: '<tr>' +
-                                '<td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                '<td style="padding:0"><b>{point.y:.1f} ms</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            }
-        });
-
-        SlowestResponses();
-    }
-
-    function SlowestResponses() {
-        responseData.sort(function (a, b) {
-            return parseFloat(a.ResponseTime) - parseFloat(b.ResponseTime);
-        });
-        var chart = $('#ContainerTenSlowest').highcharts();
-        if (responseData.length < 10) {
+        function DrawChartWithAllResponses() {
+            var chart = $('#ContainerAll').highcharts();
             for (var i = 0; i < responseData.length; i++) {
-                chart.addSeries({ id: responseData[i].ResponseUrl, name: responseData[i].ResponseUrl })
-                 .addPoint(responseData[i].ResponseTime);
-            }
-        } else {
-            for (var i = responseData.length - 1; i >= responseData.length - 10; i--) {
-                chart.addSeries({ id: responseData[i].ResponseUrl, name: responseData[i].ResponseUrl })
-                 .addPoint(responseData[i].ResponseTime);
+                if (chart.get(responseData[i].SiteUrl)) {
+                    chart.get(responseData[i].SiteUrl).addPoint(responseData[i].ResponseTime);
+                } else {
+                    chart.addSeries({ id: responseData[i].SiteUrl, name: responseData[i].SiteUrl})
+                         .addPoint(responseData[i].ResponseTime);
+                }
             }
         }
-    }
 
-    MeasureResponseTime();
 
-</script>
+        function DrawChartMinMaxResponses() {
+            responseData.sort(function (a, b) {
+                return parseFloat(a.ResponseTime) - parseFloat(b.ResponseTime);
+            });
+
+            responseData[0].ResponseTime;                       //min
+            responseData[responseData.length - 1].ResponseUrl; // max
+
+            $('#ContainerMinMax').highcharts({
+                chart: {
+                    renderTo: 'ContainerMinMax',
+                    type: 'column'
+                },
+                title: {
+                    text: 'Min and max response time'
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com'
+                },
+                xAxis: {
+                    categories: ['min/max'],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Time (msec)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span> </br>' +
+                                  '<table>',
+                    pointFormat: '<tr>' +
+                                    '<td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0"><b>{point.y:.1f} ms</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [
+                    {
+                        name: 'min: ' + responseData[0].ResponseUrl,                             //min
+                        data: [responseData[0].ResponseTime]
+                    },{
+                        name: 'max: ' + responseData[responseData.length - 1].ResponseUrl,      // max
+                        data: [responseData[responseData.length-1].ResponseTime]
+                    }
+                ]
+            });
+        }
+
+
+        function DrawChartTenSlowest() {
+            $('#ContainerTenSlowest').highcharts({
+                chart: {
+                    renderTo: 'ContainerTenSlowest',
+                    type: 'column'
+                },
+                title: {
+                    text: 'Min and max response time'
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com'
+                },
+                xAxis: {
+                    categories: ["Ten slowest responses"],
+                    crosshair: true
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Time (msec)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span> </br>' +
+                                  '<table>',
+                    pointFormat: '<tr>' +
+                                    '<td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0"><b>{point.y:.1f} ms</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                }
+            });
+
+            SlowestResponses();
+        }
+
+        function SlowestResponses() {
+            responseData.sort(function (a, b) {
+                return parseFloat(a.ResponseTime) - parseFloat(b.ResponseTime);
+            });
+            var chart = $('#ContainerTenSlowest').highcharts();
+            if (responseData.length < 10) {
+                for (var i = 0; i < responseData.length; i++) {
+                    chart.addSeries({ id: responseData[i].ResponseUrl, name: responseData[i].ResponseUrl })
+                     .addPoint(responseData[i].ResponseTime);
+                }
+            } else {
+                for (var i = responseData.length - 1; i >= responseData.length - 10; i--) {
+                    chart.addSeries({ id: responseData[i].ResponseUrl, name: responseData[i].ResponseUrl })
+                     .addPoint(responseData[i].ResponseTime);
+                }
+            }
+        }
+
+        MeasureResponseTime();
+
+    </script>*@

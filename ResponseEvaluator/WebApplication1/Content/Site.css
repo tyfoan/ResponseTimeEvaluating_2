@@ -22,3 +22,32 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+
+td {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 10px 5px;
+    overflow: hidden;
+    word-break: normal;
+}
+
+th {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 10px 5px;
+    overflow: hidden;
+    word-break: normal;
+}
+
+.tg-baqh {
+    text-align: center;
+    vertical-align: top;
+}
+
+.tg-yw4l {
+    text-align: center;
+    vertical-align: top;
+}

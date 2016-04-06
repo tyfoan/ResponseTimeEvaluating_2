@@ -1,5 +1,4 @@
-﻿@using System.Web.UI.WebControls
-@model WebApplication1.Models.Site
+﻿@model WebApplication1.Models.Site
 @{
     ViewBag.Title = "Home Page";
 }
@@ -10,21 +9,21 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Ajax.BeginForm("EvaluateSite", "Home", new AjaxOptions() { UpdateTargetId = "chartDrawing" }, new { @class = "form-horizontal" }))
+            @using (Ajax.BeginForm("BuildSiteMap", "Home", new AjaxOptions() { UpdateTargetId = "sitemap" }, new { @class = "form-horizontal" }))
             {
                 <div class="form-group">
 
                     @Html.LabelFor(x => x.SiteUrl)
                     @Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.SiteUrl, "", new { @class = "text-danger" })<br />
-                    <input type="submit" class="btn btn-success" value="Измерить время запроса" />
+                    <input type="submit" class="btn btn-success" value="Построить карту сайта" />
                 </div>
             }
 
 
             <label> <input type="radio" value="All" name="chart" id="radioAll" onchange="ShowChart()" checked="checked" />Show all responses</label><br />
             <label> <input type="radio" value="MinMax" name="chart" id="radioMinMax" onchange="ShowChart()" />Show min/max responses </label><br />
-            <label> <input type="radio" value="TenSlowest" name="chart" id="radioTenSlowest" onchange="ShowChart()"/> Show 10 slowest responses </label><br/>
+            <label> <input type="radio" value="TenSlowest" name="chart" id="radioTenSlowest" onchange="ShowChart()" /> Show 10 slowest responses </label><br />
 
             @Ajax.ActionLink("Показать график", "EvaluateSite", "Home", new AjaxOptions() { UpdateTargetId = "chartDrawing" }, new { @class = "btn btn-default" })
 
@@ -35,28 +34,86 @@
 
         </section>
     </div>
-    <div id="chartDrawing">
+    <div id="sitemap" class="col-md-2">
 
     </div>
+    <div id="chartDrawing" class="col-md-8">
+
+    </div>
+    <div id="Table" class="col-md-8">
+        <table class="table table-bordered">
+                <tr>
+                    <th class="tg-yw4l"></th>
+                    <th class="tg-yw4l">#</th>
+                    <th class="tg-yw4l">URL</th>
+                    <th class="tg-yw4l">Response time</th>
+                </tr>
+                <tr>
+
+                    <td class="tg-baqh" rowspan="10">
+                        <br />
+                        <br />
+                        Slowest responses
+                    </td>
+                    <td class="tg-baqh">1</td>
+                    <td class="tg-yw4l"></td>
+                    <td class="tg-yw4l"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">2</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">3</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">4</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">5</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">6</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">7</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">8</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">9</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">10</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh" colspan="2">Max</td>
+                    <td class="tg-yw4l"></td>
+                    <td class="tg-yw4l"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh" colspan="2">Min</td>
+                    <td class="tg-yw4l"></td>
+                    <td class="tg-yw4l"></td>
+                </tr>
+            </table>
+    </div>
 </div>
-
-
-<script>
-    function ShowChart() {
-        if ($('#radioAll').is(':checked')) {
-            $('#ContainerAll').show();
-            $('#ContainerMinMax').hide();
-            $('#ContainerTenSlowest').hide();
-        } else if ($('#radioMinMax').is(':checked')) {
-            $('#ContainerAll').hide();
-            $('#ContainerMinMax').show();
-            $('#ContainerTenSlowest').hide();
-        } else if ($('#radioTenSlowest').is(':checked')) {
-            $('#ContainerAll').hide();
-            $('#ContainerMinMax').hide();
-            $('#ContainerTenSlowest').show();
-        }
-    }
-
-    ShowChart();
-</script>

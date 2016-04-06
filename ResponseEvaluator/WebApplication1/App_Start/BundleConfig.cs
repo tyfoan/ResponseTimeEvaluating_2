@@ -11,7 +11,8 @@ namespace WebApplication1
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-1.10.2.min.js",
-                "~/Scripts/Highcharts-4.0.1/js/highcharts.js"));
+                "~/Scripts/Highcharts-4.0.1/js/highcharts.js",
+                "~/Scripts/JavaScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
