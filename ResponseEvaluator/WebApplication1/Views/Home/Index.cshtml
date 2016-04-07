@@ -25,6 +25,7 @@
             <label> <input type="radio" value="MinMax" name="chart" id="radioMinMax" onchange="ShowChart()" />Show min/max responses </label><br />
             <label> <input type="radio" value="TenSlowest" name="chart" id="radioTenSlowest" onchange="ShowChart()" /> Show 10 slowest responses </label><br />
 
+            @Ajax.ActionLink("Показать график", "EvaluateSite", "Home", new AjaxOptions() { UpdateTargetId = "chartDrawing" }, new { @class = "btn btn-default" })
 
 
             <div id="ContainerAll" style="min-width: 1140px; height: 400px; margin: 0 auto"></div>
@@ -33,7 +34,86 @@
 
         </section>
     </div>
-    <div id="sitemap" class="col-md-10">
+    <div id="sitemap" class="col-md-2">
 
-    </div>    
+    </div>
+    <div id="chartDrawing" class="col-md-8">
+
+    </div>
+    <div id="Table" class="col-md-8">
+        <table class="table table-bordered">
+                <tr>
+                    <th class="tg-yw4l"></th>
+                    <th class="tg-yw4l">#</th>
+                    <th class="tg-yw4l">URL</th>
+                    <th class="tg-yw4l">Response time</th>
+                </tr>
+                <tr>
+
+                    <td class="tg-baqh" rowspan="10">
+                        <br />
+                        <br />
+                        Slowest responses
+                    </td>
+                    <td class="tg-baqh">1</td>
+                    <td class="tg-yw4l"></td>
+                    <td class="tg-yw4l"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">2</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">3</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">4</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">5</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">6</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">7</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">8</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">9</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">10</td>
+                    <td class="tg-baqh"></td>
+                    <td class="tg-baqh"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh" colspan="2">Max</td>
+                    <td class="tg-yw4l"></td>
+                    <td class="tg-yw4l"></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh" colspan="2">Min</td>
+                    <td class="tg-yw4l"></td>
+                    <td class="tg-yw4l"></td>
+                </tr>
+            </table>
+    </div>
 </div>

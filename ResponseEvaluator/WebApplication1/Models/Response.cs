@@ -12,7 +12,7 @@ namespace WebApplication1.Models
         [Display(Name = "Url")]
         public string ResponseUrl { get; set; }
         public int ResponseTime { get; set; }
-        public string Host { get; set; }
+        public string SiteUrl { get; set; }
 
 
         public int SiteId { get; set; }
