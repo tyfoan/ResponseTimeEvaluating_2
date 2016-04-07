@@ -25,19 +25,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        private static void DisplayTrackedEntities(DbChangeTracker changeTracker)
-        {
-            Debug.WriteLine("");
 
-            var entries = changeTracker.Entries();
-            foreach (var entry in entries)
-            {
-                Console.WriteLine("Entity Name: {0}", entry.Entity.GetType().FullName);
-                Console.WriteLine("Status: {0}", entry.State);
-            }
-            Console.WriteLine("");
-            Console.WriteLine("---------------------------------------");
-        }
 
 
 
@@ -72,7 +60,7 @@ namespace WebApplication1.Controllers
                 {
                     newUri = new Uri(myUri.Scheme + "://" + myUri.Host + href);
 
-                    if (newUri.Host == myUri.Host && !siteMap.Contains(newUri) && newUri.Scheme != Uri.UriSchemeMailto && newUri.Segments.Length < 3
+                    if (newUri.Host == myUri.Host && !siteMap.Contains(newUri) && newUri.Scheme != Uri.UriSchemeMailto
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternDigit)
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternAnchor)
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternParam))
@@ -84,7 +72,7 @@ namespace WebApplication1.Controllers
                 {
                     newUri = new Uri(href);
 
-                    if (newUri.Host == myUri.Host && !siteMap.Contains(newUri) && newUri.Scheme != Uri.UriSchemeMailto && newUri.Segments.Length < 3
+                    if (newUri.Host == myUri.Host && !siteMap.Contains(newUri) && newUri.Scheme != Uri.UriSchemeMailto
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternDigit)
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternAnchor)
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternParam))
@@ -97,18 +85,59 @@ namespace WebApplication1.Controllers
             return siteMap;
         }
 
-        public ActionResult EvaluateSite()
+        private int ResponseTimeEvaluation(Uri url)
         {
-            return Content("asd");
+            HttpWebResponse response = null;
+            try
+            {
+                var request = WebRequest.Create(url.AbsoluteUri);
+                var timer = new Stopwatch();
+
+                timer.Start();
+                response = (HttpWebResponse)request.GetResponse();
+
+                response.Close();
+                timer.Stop();
+
+                TimeSpan timeSpan = timer.Elapsed;
+
+                return (int)timeSpan.Milliseconds;
+            }
+            catch (WebException e)
+            {
+                if (e.Status == WebExceptionStatus.ProtocolError)
+                {
+                    response = (HttpWebResponse)e.Response;
+                    Debug.Write("Errorcode: {0}", ((int)response.StatusCode).ToString());
+
+                }
+                else
+                {
+                    Debug.Write("Error: {0}", e.Status.ToString());
+                }
+                return 0;
+                throw;
+            }
         }
 
         [HttpPost]
         public ActionResult BuildSiteMap(Site site)
         {
-
-            if (context.Sites.FirstOrDefault(x => x.SiteUrl == site.SiteUrl) != null)
+            var tmpUri = new Uri(site.SiteUrl);
+            if (context.Sites.FirstOrDefault(x => x.Host == tmpUri.Host) != null)
             {
-                return PartialView("_BuildSiteMap", context.Responses);
+                var responses = context.Responses.Where(x => x.Host == tmpUri.Host);
+                Uri uri;
+                foreach (var item in responses)
+                {
+                    uri = new Uri(item.ResponseUrl);
+                    item.ResponseTime = ResponseTimeEvaluation(uri);
+
+                    context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                }
+
+                context.SaveChanges();
+                return PartialView("_BuildSiteMap", context.Responses.Where(x => x.Host == tmpUri.Host));
             }
             else
             {
@@ -118,11 +147,19 @@ namespace WebApplication1.Controllers
                 foreach (var item in SitemapNodes(site.SiteUrl))
                     sitemap.Union(SitemapNodes(item.AbsoluteUri));
 
-                context.Sites.Add(new Site() { Host = sitemap[0].Host, SiteUrl = sitemap[0].AbsoluteUri });
-                sitemap.ForEach(x => context.Responses.Add(new Response() { SiteUrl = x.AbsoluteUri, ResponseUrl = x.AbsoluteUri }));
-                context.SaveChanges();
 
-                return PartialView("_BuildSiteMap", context.Responses);
+                context.Sites.Add(new Site() { Host = sitemap[0].Host, SiteUrl = sitemap[0].AbsoluteUri });
+                int time;
+                foreach (var x in sitemap)
+                {
+                    time = ResponseTimeEvaluation(x);
+                    if (time != 0)
+                    {
+                        context.Responses.Add(new Response() { Host = x.Host, ResponseUrl = x.AbsoluteUri, ResponseTime = time  });
+                    }
+                }
+                context.SaveChanges();
+                return PartialView("_BuildSiteMap", context.Responses.Where(x => x.Host == tmpUri.Host));
             }
         }
 
@@ -135,18 +172,9 @@ namespace WebApplication1.Controllers
             {
                 var myUri = new Uri(url);
 
-                var request = WebRequest.Create(url);
-                var timer = new Stopwatch();
-
-                timer.Start();
-                var response = (HttpWebResponse)request.GetResponse();
-                response.Close();
-                timer.Stop();
-
-                TimeSpan timeSpan = timer.Elapsed;
 
                 var tmp = context.Responses.Find(id);
-                tmp.ResponseTime = (int)timeSpan.Milliseconds;
+                tmp.ResponseTime = ResponseTimeEvaluation(myUri);
 
                 context.Entry(tmp).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
