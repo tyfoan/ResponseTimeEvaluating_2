@@ -165,30 +165,5 @@ namespace WebApplication1.Controllers
                 return PartialView("_BuildSiteMap", context.Responses.Where(x => x.Host == tmpUri.Host));
             }
         }
-
-
-
-        [HttpPost]
-        public ActionResult EvaluateSite(string url, int id)
-        {
-            try
-            {
-                var myUri = new Uri(url);
-
-
-                var tmp = context.Responses.Find(id);
-                tmp.ResponseTime = ResponseTimeEvaluation(myUri);
-
-                context.Entry(tmp).State = System.Data.Entity.EntityState.Modified;
-                context.SaveChanges();
-
-                return Json(context.Responses);
-            }
-            catch (Exception e)
-            {
-                Debug.Write(e.Message);
-                throw;
-            }
-        }
     }
 }
