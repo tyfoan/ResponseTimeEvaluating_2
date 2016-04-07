@@ -222,6 +222,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\loading.gif" />
     <Content Include="DI\Ninject\ReadMe.txt" />
     <Content Include="DI\StructureMap\ReadMe.txt" />
     <Content Include="favicon.ico" />

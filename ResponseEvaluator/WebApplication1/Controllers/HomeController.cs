@@ -60,7 +60,7 @@ namespace WebApplication1.Controllers
                 {
                     newUri = new Uri(myUri.Scheme + "://" + myUri.Host + href);
 
-                    if (newUri.Host == myUri.Host && !siteMap.Contains(newUri) && newUri.Scheme != Uri.UriSchemeMailto
+                    if (newUri.Host == myUri.Host && !siteMap.Contains(newUri) && newUri.Scheme != Uri.UriSchemeMailto && newUri.Segments.Length < 3
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternDigit)
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternAnchor)
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternParam))
@@ -72,7 +72,7 @@ namespace WebApplication1.Controllers
                 {
                     newUri = new Uri(href);
 
-                    if (newUri.Host == myUri.Host && !siteMap.Contains(newUri) && newUri.Scheme != Uri.UriSchemeMailto
+                    if (newUri.Host == myUri.Host && !siteMap.Contains(newUri) && newUri.Scheme != Uri.UriSchemeMailto && newUri.Segments.Length < 3
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternDigit)
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternAnchor)
                         && !Regex.IsMatch(newUri.AbsoluteUri, patternParam))
@@ -80,7 +80,6 @@ namespace WebApplication1.Controllers
                         siteMap.Add(new Uri(newUri.AbsoluteUri));
                     }
                 }
-               
             }
             return siteMap;
         }

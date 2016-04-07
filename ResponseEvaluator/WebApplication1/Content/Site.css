@@ -52,3 +52,5 @@ th {
     text-align: center;
     vertical-align: top;
 }
+
+div#loading { display: none; }

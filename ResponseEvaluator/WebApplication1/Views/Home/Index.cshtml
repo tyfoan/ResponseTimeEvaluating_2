@@ -9,13 +9,22 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Ajax.BeginForm("BuildSiteMap", "Home", new AjaxOptions() { UpdateTargetId = "sitemap" }, new { @class = "form-horizontal" }))
+            @using (Ajax.BeginForm("BuildSiteMap", "Home", new AjaxOptions()
+            {
+                UpdateTargetId = "sitemap",
+                OnSuccess = "onLoginSuccess",
+                LoadingElementId = "loading",
+                OnBegin = "onLoginBegin"
+            }, new { @class = "form-horizontal", @id = "loginForm" }))
             {
                 <div class="form-group">
-
                     @Html.LabelFor(x => x.SiteUrl)
                     @Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(x => x.SiteUrl, "", new { @class = "text-danger" })<br />
+                    @Html.ValidationMessageFor(x => x.SiteUrl, "", new { @class = "text-danger" })
+                    <div id="loading" class="col-md-10">
+                        <img src="~/Content/Images/loading.gif" />
+                    </div>
+                    <br />
                     <input type="submit" class="btn btn-success" value="Построить карту сайта" />
                 </div>
             }
@@ -26,7 +35,6 @@
             <label> <input type="radio" value="TenSlowest" name="chart" id="radioTenSlowest" onchange="ShowChart()" /> Show 10 slowest responses </label><br />
 
 
-
             <div id="ContainerAll" style="min-width: 1140px; height: 400px; margin: 0 auto"></div>
             <div id="ContainerMinMax" style="min-width: 1140px; height: 400px; margin: 0 auto" hidden="hidden"></div>
             <div id="ContainerTenSlowest" style="min-width: 1140px; height: 400px; margin: 0 auto" hidden="hidden"></div>
@@ -34,6 +42,15 @@
         </section>
     </div>
     <div id="sitemap" class="col-md-10">
-
+        
     </div>    
 </div>
+
+<script type="text/javascript">
+    function onLoginBegin()
+    {
+        // Disable the button and hide the other image here
+        // or you can hide the whole div like below
+        $('#logbtn').hide();
+    }
+</script>
