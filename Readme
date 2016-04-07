@@ -1,15 +1,15 @@
 
 Файлы которые изменялись в разработке:
 
-/EF/ContextEvaluator.cs 	           - Контекст данных.
+/EF/ContextEvaluator.cs 	- Контекст данных.
 
-/Models/Response.cs		               - Модель данных
+/Models/Response.cs	            - Модель данных
 /Models/Site.cs
 
 /Controllers/SitemapNodes           - Построение узлов сайта.
             /ResponseTimeEvaluation - Измерение времени запроса.
             /BuildSiteMap           - Построение карты сайта.
             
-/Views/Home/Index.cshtml	          - Вьюха
+/Views/Home/Index.cshtml	- Вьюха
 
 /Views/Home/_BuildSiteMap.cshtml    - Отрисовка графика и заполнение таблицы. (Highcharts.js)
