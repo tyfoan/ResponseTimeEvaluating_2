@@ -53,4 +53,7 @@ th {
     vertical-align: top;
 }
 
-div#loading { display: none; }
+div#loading { 
+    display: none; 
+    text-align: center;
+}

@@ -21,9 +21,6 @@
                     @Html.LabelFor(x => x.SiteUrl)
                     @Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.SiteUrl, "", new { @class = "text-danger" })
-                    <div id="loading" class="col-md-10">
-                        <img src="~/Content/Images/loading.gif" />
-                    </div>
                     <br />
                     <input type="submit" class="btn btn-success" value="Построить карту сайта" />
                 </div>
@@ -42,7 +39,9 @@
         </section>
     </div>
     <div id="sitemap" class="col-md-10">
-        
+        <div id="loading">
+            <img src="~/Content/Images/loading.gif" />
+        </div>
     </div>    
 </div>
 
