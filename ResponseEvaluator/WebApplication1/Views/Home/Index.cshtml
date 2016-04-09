@@ -18,9 +18,8 @@
             }, new { @class = "form-horizontal", @id = "loginForm" }))
             {
                 <div class="form-group">
-                    @Html.LabelFor(x => x.SiteUrl)
+                    <label>Введите url:</label>
                     @Html.TextBoxFor(x => x.SiteUrl, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(x => x.SiteUrl, "", new { @class = "text-danger" })
                     <br />
                     <input type="submit" class="btn btn-success" value="Построить карту сайта" />
                 </div>

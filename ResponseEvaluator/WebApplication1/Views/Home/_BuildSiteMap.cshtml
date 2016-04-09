@@ -153,8 +153,8 @@
 
 
 
-    min = { url: sortedResponseData[0].ResponseUrl, response: sortedResponseData[0].ResponseTime};
-    max = { url: sortedResponseData[sortedResponseData.length - 1].ResponseUrl, response: sortedResponseData[sortedResponseData.length - 1].ResponseTime};
+    max = { url: sortedResponseData[0].ResponseUrl, response: sortedResponseData[0].ResponseTime};
+    min = { url: sortedResponseData[sortedResponseData.length - 1].ResponseUrl, response: sortedResponseData[sortedResponseData.length - 1].ResponseTime};
     $(function () {
         $('#ContainerMinMax').highcharts({
             chart: {
