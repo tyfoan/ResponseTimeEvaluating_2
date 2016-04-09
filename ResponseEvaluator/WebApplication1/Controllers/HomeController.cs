@@ -53,7 +53,7 @@ namespace WebApplication1.Controllers
             HtmlDocument doc = new HtmlDocument();      //init an empty document
             doc = hw.Load(url.Scheme + "://" + url.Host);
 
-            var siteMap = new List<Uri>()
+            var siteMapPart= new List<Uri>()
             {
                    new Uri(url.Scheme + "://" + url.Host) //siteMap - init root of sitemap
             };
@@ -71,18 +71,18 @@ namespace WebApplication1.Controllers
                 {
                     nodeSiteMap = new Uri(url.Scheme + "://" + url.Host + href);
 
-                    if (!siteMap.Contains(nodeSiteMap) && IsWellFormedUri(nodeSiteMap))
-                        siteMap.Add(new Uri(nodeSiteMap.AbsoluteUri));
+                    if (!siteMapPart.Contains(nodeSiteMap) && IsWellFormedUri(nodeSiteMap))
+                        siteMapPart.Add(new Uri(nodeSiteMap.AbsoluteUri));
                 }
                 else if (Uri.IsWellFormedUriString(href, UriKind.Absolute))
                 {
                     nodeSiteMap = new Uri(href);
 
-                    if (!siteMap.Contains(nodeSiteMap) && IsWellFormedUri(nodeSiteMap))
-                        siteMap.Add(new Uri(nodeSiteMap.AbsoluteUri));
+                    if (!siteMapPart.Contains(nodeSiteMap) && IsWellFormedUri(nodeSiteMap))
+                        siteMapPart.Add(new Uri(nodeSiteMap.AbsoluteUri));
                 }
             }
-            return siteMap;
+            return siteMapPart;
         }
 
         private int ResponseTimeEvaluation(Uri url)
